@@ -1,16 +1,34 @@
 import type { NextPage } from 'next'
 import Head from 'next/head'
 import styles from '../styles/Home.module.css'
-import { Canvas, useFrame } from "@react-three/fiber";
-import { Suspense } from 'react'
+import { Canvas, useFrame, useThree } from "@react-three/fiber";
+import { Suspense, useRef } from 'react'
 import { Sky, Loader, Stars, Stats } from '@react-three/drei'
 import * as THREE from 'three'
 
-// Import components
+// Import/create components
 import PlayButton from '../components/PlayButton'
 import CupModels from '../components/CupModel'
 import Text from '../components/Text'
 import Icosahedrons from '../components/Isocahedron';
+
+function GrpText() {
+
+  const group = useRef<THREE.Group>()
+  useFrame(({ clock }) => (group.current!.rotation.x = group.current!.rotation.y = group.current!.rotation.z = Math.sin(clock.getElapsedTime()) * 0.3))
+
+  return (
+    <group ref={group}>
+      <Text text="Control the camera"  position={[0, 0.5, -1]} vAlign='center' hAlign='center' animate={false}
+        geomOptions={{ size: 0.5, height: 0.5, bevelEnabled: true, bevelSize: 0.025, bevelThickness: 0.025 }} 
+      />
+      <Text text="with your mouse!"  position={[-0.31, -0.15, -1]} vAlign='center' hAlign='center' animate={false}
+        geomOptions={{ size: 0.5, height: 0.5, bevelEnabled: true, bevelSize: 0.025, bevelThickness: 0.025 }} 
+      />
+    </group>
+  )
+
+}
 
 // Camera effects
 function Dolly() {
@@ -34,30 +52,18 @@ function Parallax() {
 
 function WildCameraControls() {
 
-  const lookAtPosition = new THREE.Vector3()
+  const lookAtPosition = new THREE.Vector3(0, 0, 0)
+  const camPositionVec = new THREE.Vector3()
 
-  useFrame((state, delta) => {
-    const parallaxX = state.mouse.x * 3
-    const parallaxY = state.mouse.y * 3
-
-    state.camera.position.x += (parallaxX - state.camera.position.x) * 1.5 * delta
-    state.camera.position.y += (parallaxY - state.camera.position.y) * 1.5 * delta
-    state.camera.position.z = 4 + Math.abs(state.mouse.x) * 2 + Math.abs(state.mouse.y) * 2
-
-    // state.camera.rotation.x = Math.abs(state.mouse.x) * Math.PI
-
+  useFrame((state) => {
+    state.camera.position
+      .lerp(camPositionVec.set(state.mouse.x * 3, state.mouse.y * 3, 4 + Math.abs(state.mouse.x) * 2 + Math.abs(state.mouse.y) * 2), 0.05)
     state.camera.lookAt(lookAtPosition)
-
-    state.camera.updateProjectionMatrix()
-
   })
   return null
 }
 
 const Home: NextPage = () => {
-
-
-
 
   const textOptions = {
     size: 1,
@@ -113,6 +119,16 @@ const Home: NextPage = () => {
           <Stars radius={100} depth={50} count={5000} factor={4} saturation={0} fade />
           <WildCameraControls />
           {/* <gridHelper /> */}
+        </Suspense>
+      </Canvas>
+      <Loader />
+
+      <h1>Alternatively, animate both field and text</h1>
+      <Canvas id="text-test" style={{height: '50vh'}}>
+        <Suspense fallback={null}>
+          <Icosahedrons range={100} material='normal' fieldScale={10} closeness={1} animation={true} />
+          <GrpText />
+          <Sky sunPosition={[1, 2, 0]} />
         </Suspense>
       </Canvas>
       <Loader />
