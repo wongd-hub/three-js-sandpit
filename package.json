@@ -5,18 +5,31 @@
     "dev": "next dev",
     "build": "next build",
     "start": "next start",
-    "lint": "next lint"
+    "lint": "next lint",
+    "deploy": "vercel --prod"
   },
   "dependencies": {
+    "@react-three/drei": "^8.4.0",
+    "@react-three/fiber": "^7.0.24",
+    "framer-motion": "^5.6.0",
+    "gltfjsx": "^4.5.2",
     "next": "12.0.7",
+    "next-transpile-modules": "^9.0.0",
     "react": "17.0.2",
-    "react-dom": "17.0.2"
+    "react-dom": "17.0.2",
+    "sass": "^1.47.0",
+    "three": "^0.136.0",
+    "vercel": "^23.1.2"
   },
   "devDependencies": {
-    "@types/node": "17.0.8",
-    "@types/react": "17.0.38",
+    "@types/next": "^9.0.0",
+    "@types/node": "^17.0.8",
+    "@types/react": "^17.0.38",
+    "@types/react-dom": "^17.0.11",
+    "@types/three": "^0.136.1",
     "eslint": "8.6.0",
     "eslint-config-next": "12.0.7",
-    "typescript": "4.5.4"
+    "file-loader": "^6.2.0",
+    "typescript": "^4.5.4"
   }
 }
