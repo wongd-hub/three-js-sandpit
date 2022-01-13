@@ -25,7 +25,8 @@ type GLTFResult = GLTF & {
 
 export function CupModel(props: {
   groupProps?: JSX.IntrinsicElements["group"],
-  noSaucer: boolean
+  noSaucer: boolean,
+  material: 'normal' | 'phong'
 }) {
   const group = useRef<THREE.Group>()
   const { nodes } = useGLTF('/assets/models/CupModel.gltf') as GLTFResult
@@ -33,16 +34,20 @@ export function CupModel(props: {
   return (
     <group ref={group} {...props.groupProps} dispose={null}>
       <mesh geometry={nodes.Ceramic_cup_Circle005.geometry}>
-        {/* <meshNormalMaterial /> */}
-        <meshPhongMaterial color="#fff" shininess={10} />
+        { props.material === 'normal' 
+          ? (<meshNormalMaterial />)
+          : (<meshPhongMaterial color="#fff" shininess={10} />)  
+        }
       </mesh>
       {
         props.noSaucer ? (
           null
         ) : (
           <mesh geometry={nodes.Saucer_Circle006.geometry}>
-            {/* <meshNormalMaterial /> */}
-            <meshPhongMaterial color="#fff" shininess={10} />  
+            {props.material === 'normal' 
+              ? (<meshNormalMaterial />)
+              : (<meshPhongMaterial color="#fff" shininess={10} />)
+            }
           </mesh>
         )
       }
@@ -55,7 +60,9 @@ useGLTF.preload('/assets/models/CupModel.gltf')
 export interface CupModelsProps {
   count: number,
   fieldScale: number,
-  closeness: number
+  closeness: number,
+  animation: boolean,
+  material: 'normal' | 'phong'
 }
 
 export default function CupModels(props: CupModelsProps) {
@@ -63,9 +70,11 @@ export default function CupModels(props: CupModelsProps) {
   const group = useRef<THREE.Group>()
   // useFrame(({ clock }) => (group.current!.rotation.x = group.current!.rotation.y = group.current!.rotation.z = Math.sin(clock.getElapsedTime()) * 0.3))
   useFrame(({ clock }) => {
-    group.current!.rotation.x = clock.getElapsedTime() * 0.1
-    group.current!.rotation.y = Math.sin(clock.getElapsedTime() * 0.4)
-    group.current!.rotation.z = clock.getElapsedTime() * 0.1
+    if (props.animation === true) {
+      group.current!.rotation.x = clock.getElapsedTime() * 0.1
+      group.current!.rotation.y = Math.sin(clock.getElapsedTime() * 0.4)
+      group.current!.rotation.z = clock.getElapsedTime() * 0.1
+    }
   })
 
 
@@ -81,7 +90,7 @@ export default function CupModels(props: CupModelsProps) {
     const sca = Math.random() * 0.2
 
     const saucerBool = Math.random() < 0.5 ? true : false
-    return (<CupModel key={i} noSaucer={saucerBool} groupProps={{position: [xPos, yPos, zPos], rotation: [xRot, yRot, zRot], scale: [sca, sca, sca]}} />)
+    return (<CupModel key={i} noSaucer={saucerBool} groupProps={{position: [xPos, yPos, zPos], rotation: [xRot, yRot, zRot], scale: [sca, sca, sca]}} material={props.material} />)
   })
 
   return ( 

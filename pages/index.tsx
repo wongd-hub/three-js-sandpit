@@ -3,13 +3,14 @@ import Head from 'next/head'
 import styles from '../styles/Home.module.css'
 import { Canvas, useFrame } from "@react-three/fiber";
 import { Suspense } from 'react'
-import { Sky } from '@react-three/drei'
+import { Sky, Loader, Stars, Stats } from '@react-three/drei'
+import * as THREE from 'three'
 
 // Import components
 import PlayButton from '../components/PlayButton'
 import CupModels from '../components/CupModel'
 import Text from '../components/Text'
-import AnimatedText from '../components/AnimatedText'
+import Icosahedrons from '../components/Isocahedron';
 
 // Camera effects
 function Dolly() {
@@ -20,7 +21,43 @@ function Dolly() {
   return null
 }
 
+function Parallax() {
+  useFrame((state, delta) => {
+    const parallaxX = state.mouse.x * 0.7
+    const parallaxY = state.mouse.y * 0.7
+
+    state.camera.position.x += (parallaxX - state.camera.position.x) * 7 * delta
+    state.camera.position.y += (parallaxY - state.camera.position.y) * 7 * delta
+  })
+  return null
+}
+
+function WildCameraControls() {
+
+  const lookAtPosition = new THREE.Vector3()
+
+  useFrame((state, delta) => {
+    const parallaxX = state.mouse.x * 3
+    const parallaxY = state.mouse.y * 3
+
+    state.camera.position.x += (parallaxX - state.camera.position.x) * 1.5 * delta
+    state.camera.position.y += (parallaxY - state.camera.position.y) * 1.5 * delta
+    state.camera.position.z = 4 + Math.abs(state.mouse.x) * 2 + Math.abs(state.mouse.y) * 2
+
+    // state.camera.rotation.x = Math.abs(state.mouse.x) * Math.PI
+
+    state.camera.lookAt(lookAtPosition)
+
+    state.camera.updateProjectionMatrix()
+
+  })
+  return null
+}
+
 const Home: NextPage = () => {
+
+
+
 
   const textOptions = {
     size: 1,
@@ -38,40 +75,47 @@ const Home: NextPage = () => {
         <link rel="icon" href="/favicon.ico" />
       </Head>
       <PlayButton />
+
+      <h1>Instancing <em>n</em> teacups, camera/animation effects, logo on-hover effects</h1>
       <Canvas 
         id="teacup-field" 
         style={{height: '50vh'}}
         camera={{ near: 0.5, far: 15 }}
-        >
-        <Suspense fallback={
-                <mesh>
-                  <boxBufferGeometry args={[1, 1, 1]} />
-                  <meshNormalMaterial />
-               </mesh>
-        }>
+      >
+        <Suspense fallback={null}>
           <spotLight color="#61dafb" position={[-10, -10, -10]} intensity={0.2} />
           <spotLight color="#61dafb" position={[-10, 0, 15]} intensity={0.8} />
           <spotLight color="#61dafb" position={[-5, 20, 2]} intensity={0.5} />
           <spotLight color="#f2056f" position={[15, 10, -2]} intensity={2} />
           <spotLight color="#f2056f" position={[15, 10, 5]} intensity={1} />
           <spotLight color="#b107db" position={[5, -10, 5]} intensity={0.8} />
-          <CupModels count={500} fieldScale={10} closeness={0} />
-          <Text text="VANILLA" position={[0, 0, -1]} vAlign='center' hAlign='center' geomOptions={textOptions} />
-          <Text text="TEA" position={[-1, -1, -1]} vAlign='center' hAlign='center' geomOptions={textOptions} />
+          <CupModels count={500} fieldScale={10} closeness={0} animation={true} material='phong'/>
+          <Text text="VANILLA" position={[0, 0, -1]} vAlign='center' hAlign='center' geomOptions={textOptions} animate={true} />
+          <Text text="TEA" position={[-1, -1, -1]} vAlign='center' hAlign='center' geomOptions={textOptions} animate={true} />
           <Sky />
           <Dolly />
+          <Stats showPanel={0} />
         </Suspense>
       </Canvas>
-      <Canvas id="text-test" style={{height: '40vh'}}>
-        <Suspense fallback={
-                <mesh>
-                  <boxBufferGeometry args={[1, 1, 1]} />
-                  <meshNormalMaterial />
-               </mesh>
-        }>
-          {/* <AnimatedText text="ANIMATED TEXT" geomOptions={textOptions} /> */}
+      <Loader />
+
+      <h1>Controlling camera with mouse, using the Instances element</h1>
+      <Canvas id="text-test" style={{height: '50vh'}}>
+        <Suspense fallback={null}>
+          <Icosahedrons range={100} material='normal' fieldScale={10} closeness={1} animation={true} />
+          <Text text="Control the camera"  position={[0, 0.5, -1]} vAlign='center' hAlign='center' animate={false}
+            geomOptions={{ size: 0.5, height: 0.5, bevelEnabled: true, bevelSize: 0.025, bevelThickness: 0.025 }} 
+          />
+          <Text text="with your mouse!"  position={[-0.31, -0.15, -1]} vAlign='center' hAlign='center' animate={false}
+            geomOptions={{ size: 0.5, height: 0.5, bevelEnabled: true, bevelSize: 0.025, bevelThickness: 0.025 }} 
+          />
+          <Sky sunPosition={[0, 0.5, 0]} />
+          <Stars radius={100} depth={50} count={5000} factor={4} saturation={0} fade />
+          <WildCameraControls />
+          {/* <gridHelper /> */}
         </Suspense>
       </Canvas>
+      <Loader />
     </div>
   )
 }

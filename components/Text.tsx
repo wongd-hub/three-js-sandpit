@@ -1,5 +1,5 @@
-import React, { useRef, useEffect } from "react";
-import { extend } from "@react-three/fiber";
+import React, { useRef, useEffect, useState } from "react";
+import { extend, useFrame } from "@react-three/fiber";
 import * as THREE from 'three';
 import { FontLoader } from 'three/examples/jsm/loaders/FontLoader';
 import { TextGeometry } from 'three/examples/jsm/geometries/TextGeometry';
@@ -13,14 +13,16 @@ export interface TextProps {
     text: string,
     vAlign?: string, 
     hAlign?: string,
-    geomOptions: any
+    geomOptions: any,
+    animate: boolean
 }
 
 // Components
 export default function Text(props: TextProps) {
+
     const font = new FontLoader().parse(poppinsBold);
     const mesh = useRef<THREE.Mesh>(null!)
-    
+
     // Align text as noted in props
     useEffect(() => {
         mesh.current.position.set(props.position[0], props.position[1], props.position[2])
@@ -32,10 +34,24 @@ export default function Text(props: TextProps) {
         mesh.current.position.y += props.vAlign === 'center' ? -size.y / 2 : props.vAlign === 'top' ? 0 : -size.y
       }, [props]);
 
+    // const txtGrp = useRef<THREE.Group>()
+    const [txtHovered, setTxtHovered] = useState(false)
+      
+    useFrame((state) => {
+        if (props.animate === true) {
+            mesh.current!.scale.x = 
+            mesh.current!.scale.y = 
+            mesh.current!.scale.z = 
+            THREE.MathUtils.lerp(mesh.current!.scale.z, txtHovered ? 1.4 : 1, 0.1)
+        }
+    })
+
+
     return (
         <mesh 
             ref={mesh}
             position={props.position}
+            onPointerOver={(e) => (e.stopPropagation(), setTxtHovered(true))} onPointerOut={() => setTxtHovered(false)}
         >
             <textGeometry attach="geometry" args={[props.text, {font, ...props.geomOptions}]}  />
             <meshNormalMaterial attach="material" />
