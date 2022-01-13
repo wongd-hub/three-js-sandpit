@@ -1,7 +1,7 @@
 import type { NextPage } from 'next'
 import Head from 'next/head'
 import styles from '../styles/Home.module.css'
-import { Canvas } from "@react-three/fiber";
+import { Canvas, useFrame } from "@react-three/fiber";
 import { Suspense } from 'react'
 import { Sky } from '@react-three/drei'
 
@@ -10,6 +10,15 @@ import PlayButton from '../components/PlayButton'
 import CupModels from '../components/CupModel'
 import Text from '../components/Text'
 import AnimatedText from '../components/AnimatedText'
+
+// Camera effects
+function Dolly() {
+  useFrame((state) => {
+    state.camera.position.z = 7 + Math.sin(state.clock.getElapsedTime())
+    state.camera.updateProjectionMatrix()
+  })
+  return null
+}
 
 const Home: NextPage = () => {
 
@@ -32,7 +41,7 @@ const Home: NextPage = () => {
       <Canvas 
         id="teacup-field" 
         style={{height: '50vh'}}
-        camera={{ near: 4, far: 15 }}
+        camera={{ near: 0.5, far: 15 }}
         >
         <Suspense fallback={
                 <mesh>
@@ -50,6 +59,7 @@ const Home: NextPage = () => {
           <Text text="VANILLA" position={[0, 0, -1]} vAlign='center' hAlign='center' geomOptions={textOptions} />
           <Text text="TEA" position={[-1, -1, -1]} vAlign='center' hAlign='center' geomOptions={textOptions} />
           <Sky />
+          <Dolly />
         </Suspense>
       </Canvas>
       <Canvas id="text-test" style={{height: '40vh'}}>
