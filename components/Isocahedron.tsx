@@ -9,6 +9,7 @@ export function Icosahedron({ ...props }: JSX.IntrinsicElements['group']) {
 
     const ref = useRef<THREE.InstancedMesh>()
     const [hovered, setHover] = useState(false)
+    const color = hovered ? new THREE.Color('white') : new THREE.Color('#FF2E00')
 
     useFrame((state) => {
         ref.current!.scale.x = 
@@ -19,7 +20,12 @@ export function Icosahedron({ ...props }: JSX.IntrinsicElements['group']) {
 
     return (
         <group {...props}>
-          <Instance ref={ref} onPointerOver={(e) => (e.stopPropagation(), setHover(true))} onPointerOut={() => setHover(false)} />
+          <Instance 
+            ref={ref} 
+            onPointerOver={(e) => {e.stopPropagation(); setHover(true);}} 
+            onPointerOut={() => setHover(false)} 
+            color={color}
+        />
         </group>
       )
 

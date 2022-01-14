@@ -14,7 +14,8 @@ export interface TextProps {
     vAlign?: string, 
     hAlign?: string,
     geomOptions: any,
-    animate: boolean
+    animate: boolean,
+    opacity: number
 }
 
 // Components
@@ -54,7 +55,7 @@ export default function Text(props: TextProps) {
             onPointerOver={(e) => (e.stopPropagation(), setTxtHovered(true))} onPointerOut={() => setTxtHovered(false)}
         >
             <textGeometry attach="geometry" args={[props.text, {font, ...props.geomOptions}]}  />
-            <meshNormalMaterial attach="material" />
+            <meshNormalMaterial attach="material" transparent opacity={props.opacity} />
         </mesh>
     )
 

@@ -26,7 +26,8 @@ type GLTFResult = GLTF & {
 export function CupModel(props: {
   groupProps?: JSX.IntrinsicElements["group"],
   noSaucer: boolean,
-  material: 'normal' | 'phong'
+  material: 'normal' | 'phong',
+  opacity: number
 }) {
   const group = useRef<THREE.Group>()
   const { nodes } = useGLTF('/assets/models/CupModel.gltf') as GLTFResult
@@ -35,8 +36,8 @@ export function CupModel(props: {
     <group ref={group} {...props.groupProps} dispose={null}>
       <mesh geometry={nodes.Ceramic_cup_Circle005.geometry}>
         { props.material === 'normal' 
-          ? (<meshNormalMaterial />)
-          : (<meshPhongMaterial color="#fff" shininess={10} />)  
+          ? (<meshNormalMaterial transparent opacity={props.opacity} />)
+          : (<meshPhongMaterial color="#fff" shininess={10} transparent opacity={props.opacity} />)  
         }
       </mesh>
       {
@@ -45,8 +46,8 @@ export function CupModel(props: {
         ) : (
           <mesh geometry={nodes.Saucer_Circle006.geometry}>
             {props.material === 'normal' 
-              ? (<meshNormalMaterial />)
-              : (<meshPhongMaterial color="#fff" shininess={10} />)
+              ? (<meshNormalMaterial transparent opacity={props.opacity} />)
+              : (<meshPhongMaterial color="#fff" shininess={10} transparent opacity={props.opacity} />)
             }
           </mesh>
         )
@@ -62,7 +63,8 @@ export interface CupModelsProps {
   fieldScale: number,
   closeness: number,
   animation: boolean,
-  material: 'normal' | 'phong'
+  material: 'normal' | 'phong',
+  opacity: number,
 }
 
 export default function CupModels(props: CupModelsProps) {
@@ -90,7 +92,7 @@ export default function CupModels(props: CupModelsProps) {
     const sca = Math.random() * 0.2
 
     const saucerBool = Math.random() < 0.5 ? true : false
-    return (<CupModel key={i} noSaucer={saucerBool} groupProps={{position: [xPos, yPos, zPos], rotation: [xRot, yRot, zRot], scale: [sca, sca, sca]}} material={props.material} />)
+    return (<CupModel key={i} noSaucer={saucerBool} groupProps={{position: [xPos, yPos, zPos], rotation: [xRot, yRot, zRot], scale: [sca, sca, sca]}} material={props.material} opacity={props.opacity} />)
   })
 
   return ( 
