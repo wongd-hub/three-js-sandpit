@@ -80,7 +80,7 @@ export default function BreathingDots() {
         <Canvas 
             color={'black'} 
             style={{ height: '50vh' }} 
-            camera={{ position: [3, -5, 9], zoom: 1.9 }} // Zoom out
+            camera={{ position: [3, -5, 9], zoom: 1.9 }} // Zoom in
         >
             <color attach="background" args={["black"]} />
             <Suspense fallback={null}>

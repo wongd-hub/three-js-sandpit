@@ -72,8 +72,14 @@ const Home: NextPage = () => {
       <h1>Breathing Dots</h1>
       <BreathingDots />
 
-      <h1>Zyzz; mouse repel effect</h1>
+      <h1>More detailed imported model; mouse repel effect, glitch</h1>
       <ZeusScene />
+
+      <Link href="/demos/usefulLinks" passHref>
+        <button>
+          Useful links
+        </button>
+      </Link>
 
     </div>
   )
