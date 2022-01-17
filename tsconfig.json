@@ -16,6 +16,6 @@
     "incremental": true,
     "noImplicitAny": true
   },
-  "include": ["next-env.d.ts", "**/*.ts", "**/*.tsx"],
+  "include": ["next-env.d.ts", "**/*.ts", "**/*.tsx", "components/ParticleNet.js", "components/effects/dotmaterial.js"],
   "exclude": ["node_modules"]
 }
