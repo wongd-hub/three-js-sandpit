@@ -13,6 +13,7 @@ import CupModels from '../components/CupModel'
 import Text from '../components/Text'
 import BreathingDots from '../components/BreathingDots'
 import ZeusScene from '../components/Zeus'
+import CarScene from '../components/Car'
 
 // Camera effects
 function Dolly() {
@@ -41,7 +42,9 @@ const Home: NextPage = () => {
         <link rel="icon" href="/favicon.ico" />
       </Head>
 
-      <h1>Instancing <em>n</em> teacups, camera/animation effects, logo on-hover effects</h1>
+      <h1>React Three Fiber in a Next.js + Typescript project</h1>
+
+      <h2>Instancing <em>n</em> teacups, camera/animation effects, logo on-hover effects</h2>
       <Link href="/demos/basicExamples" passHref>
         <button>
           More like this including: controlling camera with mouse, using Instances, basic animation
@@ -69,18 +72,22 @@ const Home: NextPage = () => {
       </Canvas>
       <Loader />
 
-      <h1>Breathing Dots</h1>
+      <h2>Breathing Dots</h2>
       <BreathingDots />
 
-      <h1>More detailed imported model; mouse repel effect, glitch</h1>
+      <h2>More detailed imported model; mouse repel effect, glitch</h2>
       <ZeusScene />
+
+      <h2>Snappy controls</h2>
+      <CarScene />
+      
 
       <Link href="/demos/usefulLinks" passHref>
         <button>
           Useful links
         </button>
       </Link>
-
+      
     </div>
   )
 }
