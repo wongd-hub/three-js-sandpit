@@ -6,6 +6,7 @@ import * as THREE from 'three'
 import { Canvas, useFrame } from "@react-three/fiber"
 import { Loader } from '@react-three/drei'
 import { DepthOfField, EffectComposer } from '@react-three/postprocessing'
+import RgbDelay from './effects/rgbDelay'
 
 export interface DotProps {
     count: number
@@ -85,13 +86,14 @@ export default function BreathingDots() {
             <color attach="background" args={["black"]} />
             <Suspense fallback={null}>
                 <Dots count={22500} />
-                <EffectComposer>
+                <RgbDelay />
+                {/* <EffectComposer>
                     <DepthOfField
                         focusDistance={0.48}
                         focalLength={10}
                         bokehScale={20}
                     />
-                </EffectComposer>
+                </EffectComposer> */}
             </Suspense>
         </Canvas>
         <Loader />

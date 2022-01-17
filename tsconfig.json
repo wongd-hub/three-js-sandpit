@@ -16,6 +16,6 @@
     "incremental": true,
     "noImplicitAny": true
   },
-  "include": ["next-env.d.ts", "**/*.ts", "**/*.tsx", "components/ParticleNet.js", "components/effects/dotmaterial.js"],
+  "include": ["next-env.d.ts", "**/*.ts", "**/*.tsx", "components/ParticleNet.js", "components/effects/dotmaterial.js", "archive/rgbDelay.js"],
   "exclude": ["node_modules"]
 }
