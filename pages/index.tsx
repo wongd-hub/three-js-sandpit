@@ -43,7 +43,7 @@ const Home: NextPage = () => {
         <link rel="icon" href="/favicon.ico" />
       </Head>
 
-      <h1>React Three Fiber in a Next.js + Typescript project</h1>
+      <h1>React Three Fiber/Drei examples in a Next.js project</h1>
 
       <h2>Instancing <em>n</em> teacups, camera/animation effects, logo on-hover effects</h2>
       <Link href="/demos/basicExamples" passHref>
