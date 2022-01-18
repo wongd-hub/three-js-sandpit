@@ -1,5 +1,5 @@
 import * as THREE from 'three'
-import React, { useRef } from 'react'
+import React, { useRef, Suspense } from 'react'
 import { useGLTF, Loader, Sky, ContactShadows, PresentationControls, Html } from '@react-three/drei'
 import { GLTF } from 'three/examples/jsm/loaders/GLTFLoader'
 import { Canvas, useFrame } from "@react-three/fiber"
@@ -100,22 +100,24 @@ export default function CarScene() {
                 camera={{ position: [0, 2, 5], zoom: 1.2 }}
                 shadows
             >
+              <Suspense fallback={null}>
                 <PresentationControls
-                    global snap
-                    config={{ mass: 2, tension: 500 }}
-                    rotation={[0, 0.3, 0]}
-                    polar={[-Math.PI / 3, Math.PI / 3]}
-                    azimuth={[-Math.PI / 1.4, Math.PI / 2]}
-                >
-                  <Car />
-                  <Html scale={0.5} position={[0.1, 2.2, 1.2]} transform occlude>
-                      <div className="annotation">
-                          Drag me! 🖱️
-                      </div>
-                  </Html>
-                </PresentationControls>
-                <Sky />
-                <ContactShadows position={[0, 0, 0]} opacity={0.75} width={10} height={10} blur={2.6} far={2} />
+                      global snap
+                      config={{ mass: 2, tension: 500 }}
+                      rotation={[0, 0.3, 0]}
+                      polar={[-Math.PI / 3, Math.PI / 3]}
+                      azimuth={[-Math.PI / 1.4, Math.PI / 2]}
+                  >
+                    <Car />
+                    <Html scale={0.5} position={[0.1, 2.2, 1.2]} transform occlude>
+                        <div className="annotation">
+                            Drag me! 🖱️
+                        </div>
+                    </Html>
+                  </PresentationControls>
+                  <Sky />
+                  <ContactShadows position={[0, 0, 0]} opacity={0.75} width={10} height={10} blur={2.6} far={2} />
+              </Suspense>
             </Canvas>
             <Loader />
         </>
