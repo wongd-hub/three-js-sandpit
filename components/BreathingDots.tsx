@@ -3,7 +3,7 @@
 //   - The tutorial provides a way of turning the wave into an octagon by combining cosine with the distance function at a certain frequency
 import React, { useRef, useMemo, Suspense } from 'react'
 import * as THREE from 'three'
-import { Canvas, useFrame } from "@react-three/fiber"
+import { applyProps, Canvas, useFrame } from "@react-three/fiber"
 import { Loader } from '@react-three/drei'
 import { DepthOfField, EffectComposer } from '@react-three/postprocessing'
 import RgbDelay from './effects/rgbDelay'
@@ -74,13 +74,18 @@ function Dots(props: DotProps) {
     )
 }
 
-export default function BreathingDots() {
+export interface BreathingDotsProps {
+  style: any
+}
+
+export default function BreathingDots(props: BreathingDotsProps) {
 
   return (
     <>
         <Canvas 
             color={'black'} 
-            style={{ height: '50vh' }} 
+            style={props.style}
+            className="gallery-canvas"
             camera={{ position: [3, -5, 9], zoom: 1.9 }} // Zoom in
         >
             <color attach="background" args={["black"]} />

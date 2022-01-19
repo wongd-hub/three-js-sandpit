@@ -51,16 +51,16 @@ export function Particles({ rows, cols }) {
         <dotMaterial />
       </points>
     )
-  }
+}
 
-
-export default function ParticleField() {
+export default function ParticleField(props) {
 
 
     return (
         <>
             <Canvas
-                style={{height: '50vh'}}
+                style={props.style}
+                className="gallery-canvas"
                 camera={{ position: [-5, -1, 0] }}
             >
                 <Suspense fallback={null}>

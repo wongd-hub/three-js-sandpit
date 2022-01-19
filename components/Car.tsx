@@ -91,12 +91,18 @@ export function Car(props: JSX.IntrinsicElements['group']) {
 
 useGLTF.preload('/assets/models/car.glb')
 
-export default function CarScene() {
+export interface CarSceneProps {
+  style: any
+}
+
+
+export default function CarScene(props: CarSceneProps) {
 
     return (
         <>
             <Canvas
-                style={{ height: '50vh' }}
+                style={props.style}
+                className="gallery-canvas"
                 camera={{ position: [0, 2, 5], zoom: 1.2 }}
                 shadows
             >

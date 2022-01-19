@@ -1,3 +1,4 @@
+// Site-wide CSS
 html,
 body {
   padding: 0;
@@ -15,6 +16,27 @@ a {
   box-sizing: border-box;
 }
 
+// Gallery
+.page-container {
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+  justify-content: center;
+}
+
+.gallery-item {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  margin: 20px;
+}
+
+// canvas {
+//   height: 40vh !important;
+//   width: 30vw !important;
+// }
+
+// Other elements
 .annotation {
   cursor: pointer;
   outline: none;

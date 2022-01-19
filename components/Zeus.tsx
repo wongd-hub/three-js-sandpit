@@ -98,7 +98,10 @@ function ZeusSceneSetup() {
 }
 
 
-export interface ZeusSceneProps {}
+export interface ZeusSceneProps {
+  style: any
+}
+
 
 export default function ZeusScene(props: ZeusSceneProps) {
 
@@ -106,7 +109,8 @@ export default function ZeusScene(props: ZeusSceneProps) {
         <>
             <Canvas
                 color={'#F4EBD0'} 
-                style={{ height: '50vh' }} 
+                style={props.style}
+                className="gallery-canvas"
             >
                 <color attach="background" args={['#F4EBD0']} />
                 <Suspense fallback={null}>
