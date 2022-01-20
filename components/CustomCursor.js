@@ -1,6 +1,8 @@
 // Adapted from this tutorial https://tympanus.net/codrops/2019/01/31/custom-cursor-effects/
 // Todo
-//  - 
+//  - Do a + or cross instead of a dot and make that a prop
+//  - Figure out how to do this without having navlinks in the same component.
+//  - Figure out inability to read style from type null.
 import Script from 'next/script'
 import { useEffect, useRef, useState } from 'react'
 import paper from 'paper'
@@ -9,9 +11,6 @@ import SimplexNoise from 'simplex-noise'
 export default function CustomCursorAndNav(props) {
 
     const [vsize, setVSize] = useState([0, 0])
-    const [stuckDetails, setStuckDetails] = useState({
-        stuck: false, stuckX: 0, stuckY: 0
-    });
 
     // Function for linear interpolation of values
     const lerp = (a, b, n) => {
@@ -34,7 +33,7 @@ export default function CustomCursorAndNav(props) {
     // Handle red circle
     let lastX = 0;       
     let lastY = 0;
-    // let isStuck = false; 
+    let isStuck = false; 
     let showCursor = false;
     const strokeColor = "rgba(255, 0, 0, 0.5)";
     const strokeWidth = 1;
@@ -60,16 +59,16 @@ export default function CustomCursorAndNav(props) {
             const navItem = e.currentTarget;
             const navItemBox = navItem.getBoundingClientRect()// && 'novalue';
             //if (navItemBox !== 'novalue') {
-                let stuckX = Math.round(navItemBox.left + navItemBox.width / 2);
-                let stuckY = Math.round(navItemBox.top + navItemBox.height / 2);
-                setStuckDetails({ stuck: true, stuckX: stuckX, stuckY: stuckY })
+                stuckX = Math.round(navItemBox.left + navItemBox.width / 2);
+                stuckY = Math.round(navItemBox.top + navItemBox.height / 2);
+                isStuck = true
             //}
         }
     };
     
     // Reset isStuck on mouseLeave
     const handleMouseLeave = () => {
-        setStuckDetails({ stuck: false, stuckX: 0, stuckY: 0 })
+        isStuck = false
     };
 
     // Listen for window resize and re-render if it does to reset the red circle's position
@@ -112,24 +111,24 @@ export default function CustomCursorAndNav(props) {
             // Using linear interpolation, the circle will move 0.2 (20%)
             // of the distance between its current position and the mouse
             // coordinates per Frame
-            if (!stuckDetails.stuck) {
+            if (!isStuck) {
                 // Move the circle around normally
                 // eslint-disable-next-line react-hooks/exhaustive-deps
                 lastX = lerp(lastX, clientX, 0.2);
                 // eslint-disable-next-line react-hooks/exhaustive-deps
                 lastY = lerp(lastY, clientY, 0.2);
                 group.position = new paper.Point(lastX, lastY);
-            } else if (stuckDetails.stuck) {
+            } else if (isStuck) {
                 // Fixed position on a nav item
-                lastX = lerp(lastX, stuckDetails.stuckX, 0.2);
-                lastY = lerp(lastY, stuckDetails.stuckY, 0.2);
+                lastX = lerp(lastX, stuckX, 0.2);
+                lastY = lerp(lastY, stuckY, 0.2);
                 group.position = new paper.Point(lastX, lastY);
             }
 
-            if (stuckDetails.stuck && polygon.bounds.width < shapeBounds.width) { 
+            if (isStuck && polygon.bounds.width < shapeBounds.width) { 
                 // scale up the shape 
                 polygon.scale(1.08);
-              } else if (!stuckDetails.stuck && polygon.bounds.width > 30) {
+              } else if (!isStuck && polygon.bounds.width > 30) {
                 // remove noise
                 if (isNoisy) {
                   polygon.segments.forEach((segment, i) => {
@@ -144,7 +143,7 @@ export default function CustomCursorAndNav(props) {
               }
               
               // while stuck and big, apply simplex noise
-              if (stuckDetails.stuck && polygon.bounds.width >= shapeBounds.width) {
+              if (isStuck && polygon.bounds.width >= shapeBounds.width) {
                 isNoisy = true;
                 // first get coordinates of large circle
                 if (bigCoordinates.length === 0) {
@@ -177,7 +176,7 @@ export default function CustomCursorAndNav(props) {
               polygon.smooth();
         }
 
-    }, [vsize, stuckDetails])
+    }, [vsize])
 
     return (
         <>
