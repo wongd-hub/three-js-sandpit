@@ -31,7 +31,6 @@ export default function CustomCursorAndNav(props) {
     let lastX = 0;       
     let lastY = 0;
     let isStuck = false; 
-    let showCursor = false;
     const strokeColor = "rgba(255, 0, 0, 0.5)";
     const strokeWidth = 1;
     const segments = 8;
@@ -40,7 +39,7 @@ export default function CustomCursorAndNav(props) {
         width: 75,
         height: 75
     };
-    let group, stuckX, stuckY, fillOuterCursor;
+    let group, stuckX, stuckY;
     
     // Setup canvas
     const canvas = useRef()

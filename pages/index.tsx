@@ -23,11 +23,8 @@ const Home: NextPage = () => {
       </Head>
 
       <CustomCursor />
-
-      <h1>React Three Fiber/Drei examples in a Next.js project</h1>
+      
       <div className="page-container">
-
-
         <div className="gallery-item">
           <h2>Instancing <em>n</em> teacups + camera/animation effects</h2>
           <VanillaTea style={galleryStyle} />
