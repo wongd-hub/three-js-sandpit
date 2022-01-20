@@ -1,9 +1,6 @@
 // Adapted from this tutorial https://tympanus.net/codrops/2019/01/31/custom-cursor-effects/
-// Todo
-//  - Do a + or cross instead of a dot and make that a prop
-//  - Figure out how to do this without having navlinks in the same component.
-//  - Figure out inability to read style from type null.
-import Script from 'next/script'
+// Todo - Figure out how to do this without having navlinks in the same component.
+
 import { useEffect, useRef, useState } from 'react'
 import paper from 'paper'
 import SimplexNoise from 'simplex-noise'

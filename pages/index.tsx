@@ -1,7 +1,6 @@
 import type { NextPage } from 'next'
 import Head from 'next/head'
 import Link from 'next/link'
-import { useFrame } from "@react-three/fiber"
 
 // Import/create components
 import BreathingDots from '../components/BreathingDots'
@@ -9,8 +8,7 @@ import ZeusScene from '../components/Zeus'
 import CarScene from '../components/Car'
 import ParticleField from '../components/ParticleNet'
 import VanillaTea from '../components/VanillaTea'
-import CustomCursorAndNav from '../components/CustomCursor'
-import { useEffect } from 'react'
+import CustomCursor from '../components/CustomCursor'
 
 const Home: NextPage = () => {
 
@@ -24,8 +22,9 @@ const Home: NextPage = () => {
         <link rel="icon" href="/favicon.ico" />
       </Head>
 
-      <CustomCursorAndNav />
+      <CustomCursor />
 
+      <h1>React Three Fiber/Drei examples in a Next.js project</h1>
       <div className="page-container">
 
 
