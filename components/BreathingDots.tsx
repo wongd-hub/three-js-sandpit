@@ -44,7 +44,7 @@ function Dots(props: DotProps) {
         })
         const distances = positions.map(pos => pos.length())
         return { vec, transform, positions, distances }
-      }, [])
+      }, [props.count])
 
     useFrame(({ clock, camera }) => {
         // const scale = 1 + Math.sin(clock.elapsedTime) * 0.3 // Old, stock sine-wave

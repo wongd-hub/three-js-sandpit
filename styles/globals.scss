@@ -1,3 +1,5 @@
+@import "./custom-cursor.scss";
+
 // Site-wide CSS
 html,
 body {
@@ -5,6 +7,11 @@ body {
   margin: 0;
   font-family: -apple-system, BlinkMacSystemFont, Segoe UI, Roboto, Oxygen,
     Ubuntu, Cantarell, Fira Sans, Droid Sans, Helvetica Neue, sans-serif;
+  background-color: #1F1B24;
+}
+
+.page {
+  background-color: #1F1B24;
 }
 
 a {
@@ -14,6 +21,17 @@ a {
 
 * {
   box-sizing: border-box;
+  color: #F5F5F5;
+}
+
+.title-bar {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-items: center;
+  width: 95vw;
+  margin: 0 auto;
+  justify-content: space-between;
 }
 
 // Gallery
@@ -30,11 +48,6 @@ a {
   align-items: flex-start;
   margin: 20px;
 }
-
-// canvas {
-//   height: 40vh !important;
-//   width: 30vw !important;
-// }
 
 // Other elements
 .annotation {
