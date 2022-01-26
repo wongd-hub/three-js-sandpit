@@ -20,7 +20,7 @@ type GLTFResult = GLTF & {
   }
 }
 
-export function Car(props: JSX.IntrinsicElements['group']) {
+export default function Car(props: JSX.IntrinsicElements['group']) {
   const group = useRef<THREE.Group>()
   const { nodes, materials } = useGLTF('/assets/models/car.glb') as unknown as GLTFResult
   const newMaterial = new THREE.MeshNormalMaterial()
@@ -90,44 +90,3 @@ export function Car(props: JSX.IntrinsicElements['group']) {
 }
 
 useGLTF.preload('/assets/models/car.glb')
-
-export interface CarSceneProps {
-  style: any
-}
-
-
-export default function CarScene(props: CarSceneProps) {
-
-    return (
-        <>
-            <Canvas
-                style={props.style}
-                className="gallery-canvas"
-                camera={{ position: [0, 2, 5], zoom: 1.2 }}
-                shadows
-            >
-              <Suspense fallback={null}>
-                <PresentationControls
-                      global snap
-                      config={{ mass: 2, tension: 500 }}
-                      rotation={[0, 0.3, 0]}
-                      polar={[-Math.PI / 3, Math.PI / 3]}
-                      azimuth={[-Math.PI / 1.4, Math.PI / 2]}
-                  >
-                    <Car />
-                    <Html scale={0.5} position={[0.1, 2.2, 1.2]} transform occlude>
-                        <div className="annotation">
-                            Drag me! 🖱️
-                        </div>
-                    </Html>
-                  </PresentationControls>
-                  <Sky />
-                  <ContactShadows position={[0, 0, 0]} opacity={0.75} width={10} height={10} blur={2.6} far={2} />
-              </Suspense>
-            </Canvas>
-            <Loader />
-        </>
-    )
-
-
-}
