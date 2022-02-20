@@ -1,8 +1,5 @@
 import { useRouter } from 'next/router';
-import type { NextPage } from 'next'
-import Head from 'next/head'
 import Link from 'next/link'
-import styles from '../styles/Home.module.css'
 import { Canvas, useFrame } from "@react-three/fiber"
 import { Suspense, useRef } from 'react'
 import { Sky, Loader, Stars, Stats } from '@react-three/drei'

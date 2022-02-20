@@ -5,10 +5,13 @@ import Link from 'next/link'
 // Import/create components
 import BreathingDots from '../components/BreathingDots'
 import ZeusScene from '../components/Zeus'
-import CarScene from '../components/Car'
+import ShowcaseScene from '../components/Showcase'
 import ParticleField from '../components/ParticleNet'
 import VanillaTea from '../components/VanillaTea'
 import CustomCursor from '../components/CustomCursor'
+// import MirrorScene from '../components/MirrorScene'
+import BasicPhysics from '../components/BasicPhysics'
+// import ImportedModelPhysics from '../components/ImportedModelPhysics'
 
 const Home: NextPage = () => {
 
@@ -40,20 +43,39 @@ const Home: NextPage = () => {
           <BreathingDots style={galleryStyle} />
         </div>
 
-        <div className="gallery-item">
+        {/* <div className="gallery-item">
           <h2>More detailed imported model; mouse repel effect, glitch</h2>
           <ZeusScene style={galleryStyle} />
-        </div>
+        </div> */}
 
         <div className="gallery-item">
-          <h2>Snappy controls</h2>
-          <CarScene style={galleryStyle} />
+          <ShowcaseScene style={galleryStyle} />
         </div>
         
         <div className="gallery-item">
           <h2>Particle field</h2>
           <ParticleField style={galleryStyle} />
         </div>
+                
+        {/* <div className="gallery-item">
+          <h2>Mirror scene</h2>
+          <MirrorScene style={galleryStyle} />
+        </div> */}
+
+        <div className="gallery-item">
+          <h2>Basic physics demo</h2>
+          <BasicPhysics style={galleryStyle} />
+        </div>
+
+        {/* <div className="gallery-item">
+          <h2>Imported model physics (trimesh)</h2>
+          <ImportedModelPhysics style={galleryStyle} />
+        </div> */}
+
+        {/* <div className="gallery-item">
+          <h2>Paperclip physics (building compound physics bodies to match models)</h2>
+          <BasicPhysics style={galleryStyle} />
+        </div> */}
       </div>
 
       <Link href="/demos/usefulLinks" passHref>
