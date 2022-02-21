@@ -90,7 +90,7 @@ function ProceduralPoints({
   grid: { width, height, sep },
   anim: { init, update },
 }) {
-  const imgTex = useTexture("/assets/images/circle.png");
+  // const imgTex = useTexture("/assets/images/circle.png");
   const posRef = useRef(undefined);
   let colorRef = useRef(undefined);
   let t = init;
@@ -230,7 +230,7 @@ function ProceduralPoints({
 
       <pointsMaterial
         attach="material"
-        map={imgTex}
+        // map={imgTex}
         // color={0x00aaff}
         vertexColors
         size={0.5}
