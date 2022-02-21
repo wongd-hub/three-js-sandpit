@@ -1,21 +1,21 @@
-import type { NextPage } from 'next'
-import Head from 'next/head'
-import Link from 'next/link'
+import type { NextPage } from "next";
+import Head from "next/head";
+import Link from "next/link";
 
 // Import/create components
-import BreathingDots from '../components/BreathingDots'
-import ZeusScene from '../components/Zeus'
-import ShowcaseScene from '../components/Showcase'
-import ParticleField from '../components/ParticleNet'
-import VanillaTea from '../components/VanillaTea'
-import CustomCursor from '../components/CustomCursor'
+import BreathingDots from "../components/BreathingDots";
+import ZeusScene from "../components/Zeus";
+import ShowcaseScene from "../components/Showcase";
+import ParticleField from "../components/ParticleNet";
+import VanillaTea from "../components/VanillaTea";
+import CustomCursor from "../components/CustomCursor";
 // import MirrorScene from '../components/MirrorScene'
-import BasicPhysics from '../components/BasicPhysics'
+import BasicPhysics from "../components/BasicPhysics";
 // import ImportedModelPhysics from '../components/ImportedModelPhysics'
+import RippleScene from "../components/Ripple";
 
 const Home: NextPage = () => {
-
-  const galleryStyle = {height: '50vh', width: '45vw', minWidth: '528px'}
+  const galleryStyle = { height: "50vh", width: "45vw", minWidth: "528px" };
 
   return (
     <div className="page">
@@ -26,14 +26,17 @@ const Home: NextPage = () => {
       </Head>
 
       <CustomCursor />
-      
+
       <div className="page-container">
         <div className="gallery-item">
-          <h2>Instancing <em>n</em> teacups + camera/animation effects</h2>
+          <h2>
+            Instancing <em>n</em> teacups + camera/animation effects
+          </h2>
           <VanillaTea style={galleryStyle} />
           <Link href="/demos/basicExamples" passHref>
             <button>
-              More like this including: controlling camera with mouse, using Instances, basic animation
+              More like this including: controlling camera with mouse, using
+              Instances, basic animation
             </button>
           </Link>
         </div>
@@ -51,12 +54,12 @@ const Home: NextPage = () => {
         <div className="gallery-item">
           <ShowcaseScene style={galleryStyle} />
         </div>
-        
+
         <div className="gallery-item">
           <h2>Particle field</h2>
           <ParticleField style={galleryStyle} />
         </div>
-                
+
         {/* <div className="gallery-item">
           <h2>Mirror scene</h2>
           <MirrorScene style={galleryStyle} />
@@ -76,15 +79,18 @@ const Home: NextPage = () => {
           <h2>Paperclip physics (building compound physics bodies to match models)</h2>
           <BasicPhysics style={galleryStyle} />
         </div> */}
+
+        <div className="gallery-item">
+          <h2>Particle ripple</h2>
+          <RippleScene style={galleryStyle} />
+        </div>
       </div>
 
       <Link href="/demos/usefulLinks" passHref>
-          <button>
-            Useful links
-          </button>
-        </Link>
+        <button>Useful links</button>
+      </Link>
     </div>
-  )
-}
+  );
+};
 
-export default Home
+export default Home;
