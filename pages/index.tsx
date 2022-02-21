@@ -83,12 +83,17 @@ const Home: NextPage = () => {
 
         <div className="gallery-item">
           <h2>Particle ripple</h2>
-          <RippleScene style={galleryStyle} />
+          <RippleScene which="ripple" style={galleryStyle} />
         </div>
 
         <div className="gallery-item">
           <h2>Procedural mesh</h2>
           <ProceduralMesh style={galleryStyle} />
+        </div>
+
+        <div className="gallery-item">
+          <h2>Procedural particle</h2>
+          <RippleScene which="particle" style={galleryStyle} />
         </div>
       </div>
 
