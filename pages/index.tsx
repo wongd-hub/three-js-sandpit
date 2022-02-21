@@ -13,6 +13,7 @@ import CustomCursor from "../components/CustomCursor";
 import BasicPhysics from "../components/BasicPhysics";
 // import ImportedModelPhysics from '../components/ImportedModelPhysics'
 import RippleScene from "../components/Ripple";
+import ProceduralMesh from "../components/ProceduralMesh";
 
 const Home: NextPage = () => {
   const galleryStyle = { height: "50vh", width: "45vw", minWidth: "528px" };
@@ -83,6 +84,11 @@ const Home: NextPage = () => {
         <div className="gallery-item">
           <h2>Particle ripple</h2>
           <RippleScene style={galleryStyle} />
+        </div>
+
+        <div className="gallery-item">
+          <h2>Procedural mesh</h2>
+          <ProceduralMesh style={galleryStyle} />
         </div>
       </div>
 
