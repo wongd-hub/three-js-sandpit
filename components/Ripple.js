@@ -147,7 +147,7 @@ function ProceduralPoints({
         normals.push(0, 0, 1);
       }
     }
-    console.log(colors);
+    // console.log(colors);
     return {
       positions: new Float32Array(positions),
       colors: new Float32Array(colors),

@@ -47,10 +47,10 @@ const Home: NextPage = () => {
           <BreathingDots style={galleryStyle} />
         </div>
 
-        {/* <div className="gallery-item">
+        <div className="gallery-item">
           <h2>More detailed imported model; mouse repel effect, glitch</h2>
           <ZeusScene style={galleryStyle} />
-        </div> */}
+        </div>
 
         <div className="gallery-item">
           <ShowcaseScene style={galleryStyle} />
@@ -92,7 +92,7 @@ const Home: NextPage = () => {
         </div>
 
         <div className="gallery-item">
-          <h2>Procedural particle</h2>
+          <h2>Procedural particles</h2>
           <RippleScene which="particle" style={galleryStyle} />
         </div>
       </div>
