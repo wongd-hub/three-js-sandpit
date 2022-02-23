@@ -80,6 +80,7 @@ $navbar-height: 86px;
   gap: 1rem;
   font-size: 1.3rem;
   color: var(--blush);
+  margin: 1.5rem 0;
 
   & > span:hover {
     color: var(--dark-purple);
@@ -111,6 +112,7 @@ $navbar-height: 86px;
   width: 15vw;
   display: flex;
   flex-direction: column;
+  // overflow: scroll;
   & > span:nth-child(1) {
     font-size: 1.5rem;
     margin-bottom: 2rem;
@@ -139,6 +141,12 @@ $navbar-height: 86px;
 
 .toc {
   margin-top: 1.5rem;
+  display: flex;
+  flex-direction: column;
+  & > span {
+    margin: 1rem 0;
+    font-size: 0.9rem;
+  }
 }
 
 // Other elements

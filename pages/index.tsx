@@ -94,6 +94,7 @@ const Home: NextPage = () => {
         listOfExamples={galleryItems}
         exitButton={() => setSidebar(!sidebar)}
         setNumPerPage={setItemsPerPage}
+        numPerPage={itemsPerPage}
         pageSetter={setPage}
       />
 

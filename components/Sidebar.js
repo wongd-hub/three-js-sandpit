@@ -34,6 +34,11 @@ export default function Sidebar(props) {
         </span>
         <div className="toc">
           <strong>Table of Contents</strong>
+          {props.listOfExamples.map((el, i) => (
+            <span key={`${el}${i}`}>
+              {el.title === "" ? "Snappy controls" : el.title}
+            </span>
+          ))}
         </div>
       </div>
     </motion.div>
