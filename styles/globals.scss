@@ -86,6 +86,61 @@ $navbar-height: 86px;
   }
 }
 
+.stats-panel {
+  position: fixed;
+  height: fit-content;
+  top: auto !important;
+  bottom: 0 !important;
+  left: 0 !important;
+}
+
+// Sidebar
+.sidebar-container {
+  position: fixed;
+  right: -20vw;
+  top: 0;
+  z-index: 10;
+  padding: 2rem;
+  height: 100vh;
+  width: 40vw;
+  background-color: var(--dark-magenta);
+  color: white;
+}
+
+.sidebar-contents {
+  width: 15vw;
+  display: flex;
+  flex-direction: column;
+  & > span:nth-child(1) {
+    font-size: 1.5rem;
+    margin-bottom: 2rem;
+    text-align: end;
+    transition: opacity 0.5s ease;
+    &:hover {
+      opacity: 0.3;
+    }
+  }
+}
+
+.per-page-picker {
+  & > strong:nth-child(1) {
+    margin-right: 0.5rem;
+  }
+
+  &-item {
+    margin: 0 0.5rem;
+    text-decoration: underline;
+    transition: opacity 0.5s ease;
+    &:hover {
+      opacity: 0.3;
+    }
+  }
+}
+
+.toc {
+  margin-top: 1.5rem;
+}
+
 // Other elements
 .annotation {
   cursor: pointer;

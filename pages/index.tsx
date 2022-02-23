@@ -1,9 +1,11 @@
 import type { NextPage } from "next";
 import Head from "next/head";
-import Link from "next/link";
+import { motion } from "framer-motion";
 import React, { useEffect, useState, useMemo } from "react";
+import { Stats } from "@react-three/drei";
 
 // Import components
+import Sidebar from "../components/Sidebar";
 import { AnimatedTextGeoms, BasicExamples } from "../components/basicExamples";
 import BreathingDots from "../components/BreathingDots";
 import ZeusScene from "../components/Zeus";
@@ -18,6 +20,10 @@ import RippleScene from "../components/Ripple";
 import ProceduralMesh from "../components/ProceduralMesh";
 
 const Home: NextPage = () => {
+  const [page, setPage] = useState(1);
+  const [itemsPerPage, setItemsPerPage] = useState(2);
+  const [sidebar, setSidebar] = useState(false);
+
   const galleryStyle = { height: "50vh", width: "45vw", minWidth: "528px" };
 
   const galleryItems = useMemo(() => {
@@ -69,8 +75,6 @@ const Home: NextPage = () => {
     ];
   }, []);
 
-  const [page, setPage] = useState(1);
-  const itemsPerPage = 2;
   const numPages = useMemo(
     () => Math.ceil(galleryItems.length / itemsPerPage),
     [galleryItems, itemsPerPage]
@@ -84,7 +88,14 @@ const Home: NextPage = () => {
         <link rel="icon" href="/favicon.ico" />
       </Head>
 
-      <CustomCursor />
+      <CustomCursor optionsButton={() => setSidebar(!sidebar)} />
+      <Sidebar
+        activation={sidebar}
+        listOfExamples={galleryItems}
+        exitButton={() => setSidebar(!sidebar)}
+        setNumPerPage={setItemsPerPage}
+        pageSetter={setPage}
+      />
 
       <div className="page-container">
         <div className="examples-container">
@@ -93,11 +104,12 @@ const Home: NextPage = () => {
             .map((el, i) => {
               return (
                 <div className="gallery-item" key={`${el}${i}`}>
-                  <h2>{el.title}</h2>
+                  {el.title === "" ? <></> : <h2>{el.title}</h2>}
                   {el.component}
                 </div>
               );
             })}
+          <Stats className="stats-panel" />
         </div>
         <div className="page-numbers">
           <span onClick={() => (page === 1 ? null : setPage(page - 1))}>←</span>
