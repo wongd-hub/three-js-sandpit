@@ -35,7 +35,14 @@ export default function Sidebar(props) {
         <div className="toc">
           <strong>Table of Contents</strong>
           {props.listOfExamples.map((el, i) => (
-            <span key={`${el}${i}`}>
+            <span
+              key={`${el}${i}`}
+              onClick={() => {
+                const pageOfExample = Math.ceil((i + 1) / props.numPerPage);
+                console.log(pageOfExample);
+                props.pageSetter(pageOfExample);
+              }}
+            >
               {el.title === "" ? "Snappy controls" : el.title}
             </span>
           ))}
