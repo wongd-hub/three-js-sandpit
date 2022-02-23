@@ -46,7 +46,7 @@ $navbar-height: 86px;
 
 // Gallery
 .page-container {
-  height: calc(100vh - $navbar-height);
+  height: fit-content; //calc(100vh - $navbar-height);
 }
 
 .examples-container {
@@ -65,12 +65,18 @@ $navbar-height: 86px;
   background-color: var(--dark-purple);
   border-radius: 20px;
   overflow: hidden;
-  height: fit-content; //calc(100% - 20px);
+  height: fit-content;
+  max-width: fit-content;
   filter: drop-shadow(0px 5px 5px black);
 
   & > h2 {
     margin: 1rem 2rem;
     max-width: 40vw;
+  }
+
+  & > p {
+    margin: 0 2rem;
+    margin-bottom: 1rem;
   }
 }
 
@@ -80,7 +86,7 @@ $navbar-height: 86px;
   gap: 1rem;
   font-size: 1.3rem;
   color: var(--blush);
-  margin: 1.5rem 0;
+  padding: 1.5rem 0;
 
   & > span:hover {
     color: var(--dark-purple);
@@ -95,21 +101,23 @@ $navbar-height: 86px;
   left: 0 !important;
 }
 
+$widebar-factor: 380px;
+
 // Sidebar
 .sidebar-container {
   position: fixed;
-  right: -20vw;
+  right: -$widebar-factor;
   top: 0;
   z-index: 10;
   padding: 2rem;
   height: 100vh;
-  width: 40vw;
+  width: calc(2 * $widebar-factor);
   background-color: var(--dark-magenta);
   color: white;
 }
 
 .sidebar-contents {
-  width: 15vw;
+  width: 270px;
   display: flex;
   flex-direction: column;
   overflow: visible;

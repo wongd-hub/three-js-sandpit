@@ -30,15 +30,16 @@ const Home: NextPage = () => {
     return [
       {
         title: "Instancing n teacups + camera/animation effects",
+        notes: <p>Relevant tutorial here</p>,
         component: <VanillaTea style={galleryStyle} />,
-      },
-      {
-        title: "Text animation test",
-        component: <AnimatedTextGeoms style={galleryStyle} />,
       },
       {
         title: "Controlling camera with mouse, using the Instances element",
         component: <BasicExamples style={galleryStyle} />,
+      },
+      {
+        title: "Text animation test",
+        component: <AnimatedTextGeoms style={galleryStyle} />,
       },
       {
         title: "Breathing Dots",
@@ -106,6 +107,7 @@ const Home: NextPage = () => {
               return (
                 <div className="gallery-item" key={`${el}${i}`}>
                   {el.title === "" ? <></> : <h2>{el.title}</h2>}
+                  {el.notes ? el.notes : <></>}
                   {el.component}
                 </div>
               );
