@@ -145,7 +145,7 @@ $navbar-height: 86px;
   margin-top: 1.5rem;
   display: flex;
   flex-direction: column;
-  overflow-y: scroll;
+  overflow-y: auto;
   overflow-x: hidden;
   height: 70vh;
   counter-reset: item;
