@@ -1,8 +1,10 @@
 import type { NextPage } from "next";
 import Head from "next/head";
 import Link from "next/link";
+import React, { useEffect, useState, useMemo } from "react";
 
-// Import/create components
+// Import components
+import { AnimatedTextGeoms, BasicExamples } from "../components/basicExamples";
 import BreathingDots from "../components/BreathingDots";
 import ZeusScene from "../components/Zeus";
 import ShowcaseScene from "../components/Showcase";
@@ -18,6 +20,62 @@ import ProceduralMesh from "../components/ProceduralMesh";
 const Home: NextPage = () => {
   const galleryStyle = { height: "50vh", width: "45vw", minWidth: "528px" };
 
+  const galleryItems = useMemo(() => {
+    return [
+      {
+        title: "Instancing n teacups + camera/animation effects",
+        component: <VanillaTea style={galleryStyle} />,
+      },
+      {
+        title: "Text animation test",
+        component: <AnimatedTextGeoms style={galleryStyle} />,
+      },
+      {
+        title: "Controlling camera with mouse, using the Instances element",
+        component: <BasicExamples style={galleryStyle} />,
+      },
+      {
+        title: "Breathing Dots",
+        component: <BreathingDots style={galleryStyle} />,
+      },
+      {
+        title: "More detailed imported model; mouse repel effect, glitch",
+        component: <ZeusScene style={galleryStyle} />,
+      },
+      {
+        title: "",
+        component: <ShowcaseScene style={galleryStyle} />,
+      },
+      {
+        title: "Particle field",
+        component: <ParticleField style={galleryStyle} />,
+      },
+      {
+        title: "Basic physics demo",
+        component: <BasicPhysics style={galleryStyle} />,
+      },
+      {
+        title: "Particle ripple",
+        component: <RippleScene which="ripple" style={galleryStyle} />,
+      },
+      {
+        title: "Procedural mesh",
+        component: <ProceduralMesh style={galleryStyle} />,
+      },
+      {
+        title: "Procedural particles",
+        component: <RippleScene which="particle" style={galleryStyle} />,
+      },
+    ];
+  }, []);
+
+  const [page, setPage] = useState(1);
+  const itemsPerPage = 2;
+  const numPages = useMemo(
+    () => Math.ceil(galleryItems.length / itemsPerPage),
+    [galleryItems, itemsPerPage]
+  );
+
   return (
     <div className="page">
       <Head>
@@ -29,77 +87,39 @@ const Home: NextPage = () => {
       <CustomCursor />
 
       <div className="page-container">
-        <div className="gallery-item">
-          <h2>
-            Instancing <em>n</em> teacups + camera/animation effects
-          </h2>
-          <VanillaTea style={galleryStyle} />
-          <Link href="/demos/basicExamples" passHref>
-            <button>
-              More like this including: controlling camera with mouse, using
-              Instances, basic animation
-            </button>
-          </Link>
+        <div className="examples-container">
+          {galleryItems
+            .slice(itemsPerPage * (page - 1), itemsPerPage * page)
+            .map((el, i) => {
+              return (
+                <div className="gallery-item" key={`${el}${i}`}>
+                  <h2>{el.title}</h2>
+                  {el.component}
+                </div>
+              );
+            })}
         </div>
-
-        <div className="gallery-item">
-          <h2>Breathing Dots</h2>
-          <BreathingDots style={galleryStyle} />
-        </div>
-
-        <div className="gallery-item">
-          <h2>More detailed imported model; mouse repel effect, glitch</h2>
-          <ZeusScene style={galleryStyle} />
-        </div>
-
-        <div className="gallery-item">
-          <ShowcaseScene style={galleryStyle} />
-        </div>
-
-        <div className="gallery-item">
-          <h2>Particle field</h2>
-          <ParticleField style={galleryStyle} />
-        </div>
-
-        {/* <div className="gallery-item">
-          <h2>Mirror scene</h2>
-          <MirrorScene style={galleryStyle} />
-        </div> */}
-
-        <div className="gallery-item">
-          <h2>Basic physics demo</h2>
-          <BasicPhysics style={galleryStyle} />
-        </div>
-
-        {/* <div className="gallery-item">
-          <h2>Imported model physics (trimesh)</h2>
-          <ImportedModelPhysics style={galleryStyle} />
-        </div> */}
-
-        {/* <div className="gallery-item">
-          <h2>Paperclip physics (building compound physics bodies to match models)</h2>
-          <BasicPhysics style={galleryStyle} />
-        </div> */}
-
-        <div className="gallery-item">
-          <h2>Particle ripple</h2>
-          <RippleScene which="ripple" style={galleryStyle} />
-        </div>
-
-        <div className="gallery-item">
-          <h2>Procedural mesh</h2>
-          <ProceduralMesh style={galleryStyle} />
-        </div>
-
-        <div className="gallery-item">
-          <h2>Procedural particles</h2>
-          <RippleScene which="particle" style={galleryStyle} />
+        <div className="page-numbers">
+          <span onClick={() => (page === 1 ? null : setPage(page - 1))}>←</span>
+          {Array.apply(null, Array(numPages + 1))
+            .map(function (_, i) {
+              return i;
+            })
+            .slice(1)
+            .map((el, i) => (
+              <span key={i} onClick={() => setPage(el)}>
+                {el === page ? <strong>{el}</strong> : el}
+              </span>
+            ))}
+          <span onClick={() => (page === numPages ? null : setPage(page + 1))}>
+            →
+          </span>
         </div>
       </div>
 
-      <Link href="/demos/usefulLinks" passHref>
+      {/* <Link href="/demos/usefulLinks" passHref>
         <button>Useful links</button>
-      </Link>
+      </Link> */}
     </div>
   );
 };

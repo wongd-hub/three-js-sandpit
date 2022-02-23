@@ -90,6 +90,11 @@ function ProceduralPoints({
   grid: { width, height, sep },
   anim: { init, update },
 }) {
+  // These are square right now, to get them to both be circles AND colored (tex can't be coloured it seems)
+  //  may need to dip into shaders:
+  //  Particular shader to use: https://www.desultoryquest.com/blog/drawing-anti-aliased-circular-points-using-opengl-slash-webgl/
+  //  How to implement shaders in R3F: https://codesandbox.io/s/hopeful-chatelet-lt473?from-embed=&file=/src/dotmaterial.js
+
   // const imgTex = useTexture("/assets/images/circle.png");
   const posRef = useRef(undefined);
   let colorRef = useRef(undefined);

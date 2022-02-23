@@ -14,8 +14,16 @@
     "isolatedModules": true,
     "jsx": "preserve",
     "incremental": true,
-    "noImplicitAny": true
+    "noImplicitAny": true,
+    "downlevelIteration": true
   },
-  "include": ["next-env.d.ts", "**/*.ts", "**/*.tsx", "components/ParticleNet.js", "components/effects/dotmaterial.js", "archive/rgbDelay.js"],
+  "include": [
+    "next-env.d.ts",
+    "**/*.ts",
+    "**/*.tsx",
+    "components/ParticleNet.js",
+    "components/effects/dotmaterial.js",
+    "archive/rgbDelay.js"
+  ],
   "exclude": ["node_modules"]
 }
