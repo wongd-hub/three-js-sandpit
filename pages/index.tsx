@@ -1,6 +1,6 @@
 import type { NextPage } from "next";
 import Head from "next/head";
-import { motion } from "framer-motion";
+import { motion, AnimatePresence } from "framer-motion";
 import React, { useEffect, useState, useMemo } from "react";
 import { Stats } from "@react-three/drei";
 
@@ -19,8 +19,34 @@ import BasicPhysics from "../components/BasicPhysics";
 import RippleScene from "../components/Ripple";
 import ProceduralMesh from "../components/ProceduralMesh";
 
+const slideVariants = {
+  enter: (direction: number) => {
+    return {
+      x: direction > 0 ? 100 : -100,
+      opacity: 0,
+      transition: {
+        delay: 0.3,
+      },
+    };
+  },
+  center: {
+    x: 0,
+    opacity: 1,
+  },
+  exit: (direction: number) => {
+    return {
+      position: "fixed",
+      x: direction < 0 ? 100 : -100,
+      opacity: 0,
+      transition: {
+        duration: 0.1,
+      },
+    };
+  },
+};
+
 const Home: NextPage = () => {
-  const [page, setPage] = useState(1);
+  const [[page, direction], setPage] = useState([1, 0]);
   const [itemsPerPage, setItemsPerPage] = useState(2);
   const [sidebar, setSidebar] = useState(false);
 
@@ -101,40 +127,63 @@ const Home: NextPage = () => {
 
       <div className="page-container">
         <div className="examples-container">
-          {galleryItems
-            .slice(itemsPerPage * (page - 1), itemsPerPage * page)
-            .map((el, i) => {
-              return (
-                <div className="gallery-item" key={`${el}${i}`}>
-                  {el.title === "" ? <></> : <h2>{el.title}</h2>}
-                  {el.notes ? el.notes : <></>}
-                  {el.component}
-                </div>
-              );
-            })}
+          <AnimatePresence initial={false} custom={direction}>
+            {galleryItems
+              .slice(itemsPerPage * (page - 1), itemsPerPage * page)
+              .map((el, i) => {
+                return (
+                  <motion.div
+                    className="gallery-item"
+                    key={`${el.title}${i}`}
+                    custom={direction}
+                    variants={slideVariants}
+                    initial="enter"
+                    animate="center"
+                    exit="exit"
+                    // transition={{
+                    //   x: { type: "spring", stiffness: 300, damping: 30 },
+                    //   opacity: { duration: 0.3 },
+                    // }}
+                  >
+                    {el.title === "" ? <></> : <h2>{el.title}</h2>}
+                    {el.notes ? el.notes : <></>}
+                    {el.component}
+                  </motion.div>
+                );
+              })}
+          </AnimatePresence>
           <Stats className="stats-panel" />
         </div>
         <div className="page-numbers">
-          <span onClick={() => (page === 1 ? null : setPage(page - 1))}>←</span>
+          <span
+            onClick={page === 1 ? () => null : () => setPage([page - 1, -1])}
+          >
+            ←
+          </span>
           {Array.apply(null, Array(numPages + 1))
             .map(function (_, i) {
               return i;
             })
             .slice(1)
             .map((el, i) => (
-              <span key={i} onClick={() => setPage(el)}>
+              <span
+                key={i}
+                onClick={() => {
+                  el < page ? setPage([el, -1]) : setPage([el, 1]);
+                }}
+              >
                 {el === page ? <strong>{el}</strong> : el}
               </span>
             ))}
-          <span onClick={() => (page === numPages ? null : setPage(page + 1))}>
+          <span
+            onClick={
+              page === numPages ? () => null : () => setPage([page + 1, 1])
+            }
+          >
             →
           </span>
         </div>
       </div>
-
-      {/* <Link href="/demos/usefulLinks" passHref>
-        <button>Useful links</button>
-      </Link> */}
     </div>
   );
 };
