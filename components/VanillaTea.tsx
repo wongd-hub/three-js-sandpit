@@ -33,7 +33,7 @@ export function VTSetup() {
       <spotLight color="#f2056f" position={[15, 10, 5]} intensity={1} />
       <spotLight color="#b107db" position={[5, -10, 5]} intensity={0.8} />
       <CupModels
-        count={500}
+        count={100}
         fieldScale={10}
         closeness={0}
         animation={true}

@@ -55,12 +55,22 @@ const Home: NextPage = () => {
   const galleryItems = useMemo(() => {
     return [
       {
-        title: "Instancing n teacups + camera/animation effects",
-        notes: <p>Relevant tutorial here</p>,
+        title: "n teacups + camera/animation effects",
         component: <VanillaTea style={galleryStyle} />,
       },
       {
         title: "Controlling camera with mouse, using the Instances element",
+        notes: (
+          <p>
+            <a
+              href="https://www.ilyameerovich.com/simple-3d-text-meshes-in-three-js/"
+              target="_blank"
+              rel="noreferrer"
+            >
+              Simple 3D Text Meshes in Three.js with React-Three-Fiber
+            </a>
+          </p>
+        ),
         component: <BasicExamples style={galleryStyle} />,
       },
       {
@@ -69,10 +79,32 @@ const Home: NextPage = () => {
       },
       {
         title: "Breathing Dots",
+        notes: (
+          <p>
+            <a
+              href="https://tympanus.net/codrops/2020/12/17/recreating-a-dave-whyte-animation-in-react-three-fiber/"
+              target="_blank"
+              rel="noreferrer"
+            >
+              Recreating a Dave Whyte Animation in React-Three-Fiber
+            </a>
+          </p>
+        ),
         component: <BreathingDots style={galleryStyle} />,
       },
       {
         title: "More detailed imported model; mouse repel effect, glitch",
+        notes: (
+          <p>
+            <a
+              href="https://codesandbox.io/s/transparent-aesop-bottles-kv7tv"
+              target="_blank"
+              rel="noreferrer"
+            >
+              Transparent aesop bottles
+            </a>
+          </p>
+        ),
         component: <ZeusScene style={galleryStyle} />,
       },
       {
@@ -81,18 +113,64 @@ const Home: NextPage = () => {
       },
       {
         title: "Particle field",
+        notes: (
+          <p>
+            <a
+              href="https://codesandbox.io/s/lt473?file=/src/App.js"
+              target="_blank"
+              rel="noreferrer"
+            >
+              Particle field
+            </a>
+          </p>
+        ),
         component: <ParticleField style={galleryStyle} />,
       },
       {
         title: "Basic physics demo",
+        notes: (
+          <p>
+            <a
+              href="https://github.com/pmndrs/use-cannon/blob/5ff2baacd7caff2079b21b42ea9ca7798070a5d9/examples/src/demos/demo-CubeHeap.tsx"
+              target="_blank"
+              rel="noreferrer"
+            >
+              Cube heap
+            </a>
+          </p>
+        ),
         component: <BasicPhysics style={galleryStyle} />,
       },
       {
         title: "Particle ripple",
+        notes: (
+          <p>
+            <a
+              href="https://www.youtube.com/watch?v=wRmeFtRkF-8"
+              target="_blank"
+              rel="noreferrer"
+            >
+              Create a 3D Ripple Animation with React and Three.js using
+              react-three-fiber
+            </a>
+          </p>
+        ),
         component: <RippleScene which="ripple" style={galleryStyle} />,
       },
       {
         title: "Procedural mesh",
+        notes: (
+          <p>
+            <a
+              href="https://www.youtube.com/watch?v=2kTQZVzkXgI"
+              target="_blank"
+              rel="noreferrer"
+            >
+              Procedural Mesh Animation with Three.js and React using
+              react-three-fiber
+            </a>
+          </p>
+        ),
         component: <ProceduralMesh style={galleryStyle} />,
       },
       {
