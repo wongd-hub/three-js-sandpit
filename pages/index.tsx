@@ -13,7 +13,7 @@ import ShowcaseScene from "../components/Showcase";
 import ParticleField from "../components/ParticleNet";
 import VanillaTea from "../components/VanillaTea";
 import CustomCursor from "../components/CustomCursor";
-// import MirrorScene from '../components/MirrorScene'
+import MirrorScene from "../components/Mirrors";
 import BasicPhysics from "../components/BasicPhysics";
 // import ImportedModelPhysics from '../components/ImportedModelPhysics'
 import RippleScene from "../components/Ripple";
@@ -176,6 +176,21 @@ const Home: NextPage = () => {
       {
         title: "Procedural particles",
         component: <RippleScene which="particle" style={galleryStyle} />,
+      },
+      {
+        title: "Mirrors",
+        notes: (
+          <p>
+            <a
+              href="https://tympanus.net/codrops/2020/09/30/creating-mirrors-in-react-three-fiber-and-three-js/"
+              target="_blank"
+              rel="noreferrer"
+            >
+              Creating Mirrors in React-Three-Fiber and Three.js
+            </a>
+          </p>
+        ),
+        component: <MirrorScene />,
       },
     ];
   }, []);
